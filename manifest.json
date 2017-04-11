@@ -1,0 +1,42 @@
+{
+  "name": "hi",
+  "description": "Hepsiburada.com Insight Thing",
+  "short_name": "hi",
+  "version": "1.0.0",
+  "permissions": [
+    "tabs",
+    "notifications",
+    "storage",
+    "<all_urls>"
+  ],
+  "manifest_version": 2,
+  "icons": {
+    "16": "assets/icon60.png",
+    "48": "assets/icon60.png",
+    "128": "assets/icon120.png"
+  },
+  "browser_action": {
+    "default_icon": "assets/icon120.png"
+  },
+  "background": {
+    "scripts": [
+      "src/service.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "data/map.js",
+        "libs/isarray.js",
+        "libs/path-to-regexp.js",
+        "libs/levenshtein.js",
+        "src/utils.js",
+        "src/storage.js",
+        "src/app.js"
+      ]
+    }
+  ]
+}
