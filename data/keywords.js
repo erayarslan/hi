@@ -1,0 +1,1 @@
+var keywords = ["sony", "apple"];
