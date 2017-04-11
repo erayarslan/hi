@@ -21,7 +21,7 @@ var app = {
     var scripts = utils.tunnelScripts();
 
     scripts.execute(data.product_brand, function (brand) {
-      var product = {name: name, brand: brand};
+      var product = {name: name.toLowerCase(), brand: brand.toLowerCase()};
       var detects = app.analyze(product);
       console.log("Detected from hi", detects);
     });
