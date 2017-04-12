@@ -11,7 +11,7 @@
   ],
   "manifest_version": 2,
   "icons": {
-    "16": "assets/icon60.png",
+    "16": "assets/icon16.png",
     "48": "assets/icon60.png",
     "128": "assets/icon120.png"
   },
