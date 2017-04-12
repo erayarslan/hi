@@ -20,10 +20,8 @@ var app = {
       var product = {name: name.toLowerCase(), brand: brand.toLowerCase()};
       var detects = app.analyze(product);
 
-      if (!detects.length) {
-        console.log('[hi] nothing :<');
-      } else {
-        console.log('[hi] detected ->', detects.join(','));
+      if (detects.length) {
+        app.sendToPlugin(detects);
       }
     });
   },
@@ -73,6 +71,11 @@ var app = {
     }
 
     return {min: lowest, max: highest};
+  },
+  sendToPlugin: function (obj) {
+    chrome.runtime.sendMessage(obj, function (response) {
+      console.log('[hi] response', response);
+    });
   }
 };
 
@@ -81,3 +84,4 @@ window['onload'] = function () {
     app.init(map[host]);
   }
 };
+
