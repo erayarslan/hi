@@ -44,11 +44,20 @@ var utils = {
   tunnelScripts: function () {
     return {
       execute: function (cmd, cb) {
+        var func = function () {
+          /*
+            function () {
+              var custom = new CustomEvent('execute', {detail: eval("%%")});
+              document.body.dispatchEvent(custom);
+            }
+          */
+        };
+
         document.body.addEventListener('execute', function (e) {
           cb(e.detail);
         });
 
-        utils.injectProxyScript("function () { var custom = new CustomEvent('execute', {detail: eval(\"" + cmd + "\")}); document.body.dispatchEvent(custom);}");
+        utils.injectProxyScript(multiline(func).pass(cmd));
       }
     }
   }

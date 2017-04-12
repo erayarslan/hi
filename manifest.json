@@ -33,7 +33,7 @@
         "data/keywords.js",
         "libs/isarray.js",
         "libs/path-to-regexp.js",
-        "libs/levenshtein.js",
+        "libs/multiline.js",
         "src/extend.js",
         "src/utils.js",
         "src/storage.js",

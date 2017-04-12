@@ -1,7 +1,3 @@
-/**
- * @author Eray Arslan
- */
-
 var host = location.host;
 
 var app = {
@@ -23,7 +19,12 @@ var app = {
     scripts.execute(data.product_brand, function (brand) {
       var product = {name: name.toLowerCase(), brand: brand.toLowerCase()};
       var detects = app.analyze(product);
-      console.log("Detected from hi", detects);
+
+      if (!detects.length) {
+        console.log('[hi] nothing :<');
+      } else {
+        console.log('[hi] detected ->', detects.join(','));
+      }
     });
   },
   analyze: function (product) {
@@ -40,11 +41,7 @@ var app = {
       var y = b.similar(keywords);
       var z = c.similar(keywords);
 
-      var out = {text: x.result, score: x.score, from: a};
-
-      out = x.score > y.score ? {text: y.result, score: y.score, from: b} : {text: x.result, score: x.score, from: a};
-      out = y.score > z.score ? {text: z.result, score: z.score, from: c} : {text: y.result, score: y.score, from: b};
-      out = z.score > x.score ? {text: x.result, score: x.score, from: a} : {text: z.result, score: z.score, from: c};
+      var out = app.select([x, y, z], [a, b, c]);
 
       if (out.score <= expected_score) {
         results.push(out);
@@ -56,6 +53,26 @@ var app = {
     }).filter(function (value, index, self) {
       return self.indexOf(value) === index;
     });
+  },
+  select: function (analyzed, pure) {
+    var arr = analyzed.map(function (item, i) {
+      return {text: item.result, score: item.score, from: pure[i]}
+    });
+
+    return app.getMinAndMax(arr, 'score').min;
+  },
+  getMinAndMax: function (arr, attr) {
+    if (!arr.length) return null;
+    var lowest = arr[0];
+    var highest = arr[0];
+    var tmp;
+    for (var i = arr.length - 1; i >= 0; i--) {
+      tmp = arr[i];
+      if (tmp[attr] < lowest[attr]) lowest = tmp;
+      if (tmp[attr] > highest[attr]) highest = tmp;
+    }
+
+    return {min: lowest, max: highest};
   }
 };
 

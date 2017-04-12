@@ -180,3 +180,18 @@ String.prototype.similar = function (texts) {
 
   return {result: bestObj.original, score: bestScore, anothers: anothers};
 };
+
+String.prototype.pass = function () {
+  function safeRegexEscape(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  }
+
+  var current = this;
+
+  for (var i = 0; i < arguments.length; i++) {
+    var arg = arguments[i];
+    current = current.replace(new RegExp(safeRegexEscape("%%")), arg);
+  }
+
+  return current;
+};

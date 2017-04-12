@@ -8,5 +8,10 @@ var map = {
     "product_detail": "/:category/:product-P:sku",
     "product_name": "document.getElementsByClassName('proName')[0].innerText",
     "product_brand": "window.dataLayer[0].pBrand"
+  },
+  "urun.gittigidiyor.com": {
+    "product_detail": "/:category/:product-:sku",
+    "product_name": "document.getElementsByClassName('title')[0].innerText",
+    "product_brand": "window.TRACKING_PRODUCT_BRAND"
   }
 };
