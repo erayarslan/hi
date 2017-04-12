@@ -6,29 +6,37 @@ var app = {
     var keys = [];
     var pattern = pathToRegexp(data.product_detail, keys);
     var result = pattern.exec(path);
+
     if (result) {
       var params = utils.getParams(result, keys);
       app.collect(data);
     }
   },
   collect: function (data) {
-    var name = eval(data.product_name).trim().toLowerCase();
-
     var scripts = utils.tunnelScripts();
 
-    scripts.execute(data.product_brand, function (brand) {
-      brand = brand.trim().toLowerCase();
-      var product = {name: name, brand: brand};
-      var detects = app.analyze(product);
+    var p1 = scripts.execute(data.product_name);
+    var p2 = scripts.execute(data.product_brand);
 
-      if (detects.length) {
-        app.sendToPlugin(detects);
-      }
-    });
+    Promise.all([p1, p2]).then(app.done);
   },
-  analyze: function (product) {
-    var expected_score = 9;
-    var words = product.name.split(' ');
+  done: function (arr) {
+    var detects = [];
+
+    for (var i = 0; i < arr.length; i++) {
+      detects = detects.concat(app.analyze(arr[i]));
+    }
+
+    detects = detects.filter(function (value, index, self) {
+      return self.indexOf(value) === index;
+    });
+
+    if (detects.length) {
+      app.sendToPlugin(detects);
+    }
+  },
+  analyze: function (text) {
+    var words = text.trim().toLowerCase().split(' ');
     var results = [];
 
     for (var i = 0; i < words.length; i++) {
@@ -42,15 +50,13 @@ var app = {
 
       var out = app.select([x, y, z], [a, b, c]);
 
-      if (out.score <= expected_score) {
+      if (out.score <= EXPECTED_SCORE) {
         results.push(out);
       }
     }
 
     return results.map(function (value) {
       return value.text;
-    }).filter(function (value, index, self) {
-      return self.indexOf(value) === index;
     });
   },
   select: function (analyzed, pure) {
@@ -65,6 +71,7 @@ var app = {
     var lowest = arr[0];
     var highest = arr[0];
     var tmp;
+
     for (var i = arr.length - 1; i >= 0; i--) {
       tmp = arr[i];
       if (tmp[attr] < lowest[attr]) lowest = tmp;
@@ -75,7 +82,6 @@ var app = {
   },
   sendToPlugin: function (obj) {
     chrome.runtime.sendMessage(obj, function (response) {
-      console.log('[hi] response', response);
     });
   }
 };

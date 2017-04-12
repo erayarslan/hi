@@ -43,21 +43,23 @@ var utils = {
   },
   tunnelScripts: function () {
     return {
-      execute: function (cmd, cb) {
-        var func = function () {
-          /*
-            function () {
-              var custom = new CustomEvent('execute', {detail: eval("%%")});
-              document.body.dispatchEvent(custom);
-            }
-          */
-        };
+      execute: function (cmd) {
+        return new Promise(function (resolve, reject) {
+          var func = function () {
+            /*
+             function () {
+               var custom = new CustomEvent('execute', {detail: eval("%%")});
+               document.body.dispatchEvent(custom);
+             }
+             */
+          };
 
-        document.body.addEventListener('execute', function (e) {
-          cb(e.detail);
+          document.body.addEventListener('execute', function (e) {
+            resolve(e.detail);
+          });
+
+          utils.injectProxyScript(multiline(func).pass(cmd));
         });
-
-        utils.injectProxyScript(multiline(func).pass(cmd));
       }
     }
   }

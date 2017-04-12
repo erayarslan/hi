@@ -1,1 +1,1 @@
-var keywords = ["sony", "apple", "kindle"];
+var keywords = ["sony", "apple", "kindle", "nintendo", "calvin klein", "arzum"];

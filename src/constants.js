@@ -1,0 +1,1 @@
+var EXPECTED_SCORE = 7;

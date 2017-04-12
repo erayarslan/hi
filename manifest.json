@@ -34,6 +34,7 @@
         "libs/isarray.js",
         "libs/path-to-regexp.js",
         "libs/multiline.js",
+        "src/constants.js",
         "src/extend.js",
         "src/utils.js",
         "src/storage.js",

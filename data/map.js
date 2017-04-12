@@ -13,5 +13,10 @@ var map = {
     "product_detail": "/:category/:product-:sku",
     "product_name": "document.getElementsByClassName('title')[0].innerText",
     "product_brand": "window.TRACKING_PRODUCT_BRAND"
+  },
+  "www.teknosa.com": {
+    "product_detail": "/urunler/:sku/:product",
+    "product_name": "$.Teknosa.ProductDetail.ProductName",
+    "product_brand": "$.Teknosa.ProductDetail.ProductBrandName"
   }
 };
