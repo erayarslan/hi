@@ -12,12 +12,13 @@ var app = {
     }
   },
   collect: function (data) {
-    var name = eval(data.product_name);
+    var name = eval(data.product_name).trim().toLowerCase();
 
     var scripts = utils.tunnelScripts();
 
     scripts.execute(data.product_brand, function (brand) {
-      var product = {name: name.toLowerCase(), brand: brand.toLowerCase()};
+      brand = brand.trim().toLowerCase();
+      var product = {name: name, brand: brand};
       var detects = app.analyze(product);
 
       if (detects.length) {
