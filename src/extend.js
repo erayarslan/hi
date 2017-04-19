@@ -6,7 +6,7 @@ String.prototype.levenshtein = function (stringTo, costOfInsertion, costOfReplac
   if (!costOfReplacement) costOfReplacement = 1;
   if (!costOfDeletion) costOfDeletion = 1;
 
-  if (stringFrom == stringTo) return 0;
+  if (stringFrom === stringTo) return 0;
 
   var lengthStringA = stringFrom.length;
   var lengthStringB = stringTo.length;
@@ -32,7 +32,7 @@ String.prototype.levenshtein = function (stringTo, costOfInsertion, costOfReplac
     p2[0] = p1[0] + costOfDeletion;
 
     for (iB = 0; iB < lengthStringB; iB++) {
-      cRep = p1[iB] + ((stringFrom[iA] == stringTo[iB]) ? 0 : costOfReplacement);
+      cRep = p1[iB] + ((stringFrom[iA] === stringTo[iB]) ? 0 : costOfReplacement);
       cDel = p1[iB + 1] + costOfDeletion;
 
       if (cDel < cRep) cRep = cDel;
@@ -58,7 +58,7 @@ String.prototype.toLowerCaseTurkish = function () {
   var str = this.split("");
   for (var i = 0; i < str.length; i++) {
     var c = from.indexOf(str[i]);
-    if (c >= 0)str[i] = to[c];
+    if (c >= 0) str[i] = to[c];
   }
   return str.join("").toLowerCase();
 };
@@ -69,7 +69,7 @@ String.prototype.toUpperCaseTurkish = function () {
   var str = this.split("");
   for (var i = 0; i < str.length; i++) {
     var c = from.indexOf(str[i]);
-    if (c >= 0)str[i] = to[c];
+    if (c >= 0) str[i] = to[c];
   }
   return str.join("").toUpperCase();
 };
@@ -80,7 +80,7 @@ String.prototype.toEnglish = function () {
   var str = this.split("");
   for (var i = 0; i < str.length; i++) {
     var c = from.indexOf(str[i]);
-    if (c >= 0)str[i] = to[c];
+    if (c >= 0) str[i] = to[c];
   }
   return str.join("");
 };
@@ -156,7 +156,7 @@ String.prototype.similar = function (texts) {
     var obj = data[i];
     var lo = input.levenshtein(obj.original, 1, 2, 1);
     var lc = input.toEnglish().levenshtein(obj.clean, 1, 2, 1);
-    var ls = lo == 0 || lc == 0 ? 0 : input.toEnglish().toUpperCase().soundEx().levenshtein(obj.soundEx, 1, 2, 1);
+    var ls = lo === 0 || lc === 0 ? 0 : input.toEnglish().toUpperCase().soundEx().levenshtein(obj.soundEx, 1, 2, 1);
 
     obj.ans = [lo, lc, ls];
     obj.calc = Math.floor(ls + lc / 2.0 + lo);

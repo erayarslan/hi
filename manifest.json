@@ -2,11 +2,10 @@
   "name": "hi",
   "description": "Hepsiburada.com Insight",
   "short_name": "hi",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "permissions": [
     "tabs",
     "notifications",
-    "storage",
     "<all_urls>"
   ],
   "manifest_version": 2,
@@ -37,7 +36,6 @@
         "src/constants.js",
         "src/extend.js",
         "src/utils.js",
-        "src/storage.js",
         "src/app.js"
       ]
     }
