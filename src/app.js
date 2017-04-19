@@ -1,4 +1,6 @@
+var isTop = true;
 var host = location.host;
+var scripts = utils.tunnelScripts();
 
 var app = {
   init: function (data) {
@@ -13,8 +15,6 @@ var app = {
     }
   },
   collect: function (data) {
-    var scripts = utils.tunnelScripts();
-
     var p1 = scripts.execute(data.product_name);
     var p2 = scripts.execute(data.product_brand);
 
@@ -32,8 +32,12 @@ var app = {
     });
 
     if (detects.length) {
-      app.sendToPlugin(detects);
+      app.search(detects.join(','));
     }
+  },
+  search: function (query) {
+    search(query, function () {
+    });
   },
   analyze: function (text) {
     var words = text.trim().toLowerCase().split(' ');

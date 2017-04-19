@@ -15,5 +15,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  service.log("#hi found something!", request.join(','));
+  if (request.iframe) {
+    service.log("Hepsiburada.com'da", request.iframe, "!");
+  }
 });

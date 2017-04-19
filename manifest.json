@@ -36,8 +36,19 @@
         "src/constants.js",
         "src/extend.js",
         "src/utils.js",
+        "src/search.js",
         "src/app.js"
       ]
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/constants.js",
+        "src/iframe.js"
+      ],
+      "all_frames": true
     }
   ]
 }
