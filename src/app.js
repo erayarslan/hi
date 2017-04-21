@@ -116,7 +116,9 @@ var app = {
 
 window['onload'] = function () {
   if (map.hasOwnProperty(site)) {
-    app.init(map[site]);
+    if (!utils.isHepsiburada()) {
+      app.init(map[site]);
+    }
   }
 };
 

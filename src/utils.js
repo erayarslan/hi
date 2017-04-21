@@ -55,12 +55,15 @@ var utils = {
           };
 
           document.body.addEventListener('execute', function (e) {
-            resolve(e.detail);
+            resolve(e.detail.toString().trim());
           });
 
           utils.injectProxyScript(multiline(func).pass(cmd));
         });
       }
     }
+  },
+  isHepsiburada: function () {
+    return location.host.indexOf(HEPSIBURADA) > -1;
   }
 };
