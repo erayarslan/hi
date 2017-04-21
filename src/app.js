@@ -16,12 +16,16 @@ var app = {
     }
   },
   collect: function (data) {
-    var p1 = scripts.execute(data.product_name);
-    var p2 = scripts.execute(data.product_brand);
-
-    Promise.all([p1, p2]).then(app.done);
+    Promise.all([
+      scripts.execute("product_name", data.product_name),
+      scripts.execute("product_brand", data.product_brand),
+      scripts.execute("product_price", data.product_price)
+    ]).then(app.done);
   },
   done: function (arr) {
+    var obj = utils.mergeExecutePromiseArr(arr);
+    arr = [obj.product_name, obj.product_brand];
+
     var detects = [];
 
     for (var i = 0; i < arr.length; i++) {
@@ -37,11 +41,7 @@ var app = {
     }
 
     var query = app.query(arr);
-    app.search(query);
-  },
-  search: function (query) {
-    search(query, function () {
-    });
+    search(query, obj.product_price);
   },
   query: function (arr) {
     var result = [], ignored = [];

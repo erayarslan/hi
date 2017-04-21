@@ -5,8 +5,7 @@ var utils = {
    * @returns {String}
    */
   DecodeParam: function (val) {
-    if (typeof val !== 'string' ||
-      val.length === 0) {
+    if (typeof val !== 'string' || val.length === 0) {
       return val;
     }
 
@@ -43,19 +42,20 @@ var utils = {
   },
   tunnelScripts: function () {
     return {
-      execute: function (cmd) {
+      execute: function (key, cmd) {
         return new Promise(function (resolve, reject) {
           var func = function () {
             /*
              function () {
-               var custom = new CustomEvent('execute', {detail: eval("%%")});
-               document.body.dispatchEvent(custom);
+               document.body.dispatchEvent(new CustomEvent('execute', {detail: eval("%%")}));
              }
              */
           };
 
           document.body.addEventListener('execute', function (e) {
-            resolve(e.detail.toString().trim());
+            var data = {};
+            data[key] = e.detail.toString().trim();
+            resolve(data);
           });
 
           utils.injectProxyScript(multiline(func).pass(cmd));
@@ -65,5 +65,20 @@ var utils = {
   },
   isHepsiburada: function () {
     return location.host.indexOf(HEPSIBURADA) > -1;
+  },
+  mergeExecutePromiseArr: function (arr) {
+    var obj = {};
+    var _arr = [];
+    for (var i = 0; i < arr.length; i++) {
+      for (var key in arr[i]) {
+        if (arr[i].hasOwnProperty(key)) {
+          var str = arr[i][key];
+          obj[key] = str;
+          _arr.push(str);
+        }
+      }
+    }
+
+    return obj;
   }
 };

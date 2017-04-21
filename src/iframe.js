@@ -11,6 +11,7 @@ if (!window.isTop) {
       data['image'] = images.length ? images[0].src : "";
       data['price'] = els.length ? els[0].innerText : "";
       data['url'] = links.length ? links[0].href : "";
+      data['cmp_price'] = window.name;
 
 
       chrome.runtime.sendMessage({iframe: data});
