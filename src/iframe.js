@@ -1,12 +1,19 @@
+var data = {};
+
 if (!window.isTop) {
   if (location.href.indexOf(SEARCH_URL) > -1) {
     var items = document.getElementsByClassName('search-item');
     if (items.length) {
       var els = items[0].getElementsByClassName('price product-price');
-      if (els.length) {
-        var text = els[0].innerText;
-        chrome.runtime.sendMessage({iframe: text});
-      }
+      var images = items[0].getElementsByTagName('img');
+      var links = items[0].getElementsByTagName("a");
+
+      data['image'] = images.length ? images[0].src : "";
+      data['price'] = els.length ? els[0].innerText : "";
+      data['url'] = links.length ? links[0].href : "";
+
+
+      chrome.runtime.sendMessage({iframe: data});
     }
   }
 }

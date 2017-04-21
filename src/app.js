@@ -1,5 +1,6 @@
 var isTop = true;
 var host = location.host;
+var site = host['startsWith'](HOST_JOKER_PREFIX) ? host.substr(HOST_JOKER_PREFIX.length) : host;
 var scripts = utils.tunnelScripts();
 
 var app = {
@@ -32,12 +33,33 @@ var app = {
     });
 
     if (detects.length) {
-      app.search(detects.join(','));
+      var query = app.query(arr);
+      app.search(query);
     }
   },
   search: function (query) {
     search(query, function () {
     });
+  },
+  query: function (arr) {
+    var result = [], ignored = [];
+    for (var i = 0; i < arr.length; i++) {
+      for (var j = 0; j < arr.length; j++) {
+        if (i !== j && arr[i].indexOf(arr[j]) > -1) {
+          ignored.push(j);
+        }
+      }
+    }
+
+    for (var k = 0; k < arr.length; k++) {
+      if (ignored.indexOf(k) === -1) {
+        result.push(arr[k]);
+      }
+    }
+
+    return result.join(' ').split(' ').map(function (o) {
+      return o.trim()
+    }).slice(0, QUERY_SLICE_COUNT).join(' ').trim().toLowerCase();
   },
   analyze: function (text) {
     var words = text.trim().toLowerCase().split(' ');
@@ -91,8 +113,8 @@ var app = {
 };
 
 window['onload'] = function () {
-  if (map.hasOwnProperty(host)) {
-    app.init(map[host]);
+  if (map.hasOwnProperty(site)) {
+    app.init(map[site]);
   }
 };
 

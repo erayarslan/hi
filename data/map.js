@@ -1,5 +1,9 @@
+/**
+ * do NOT use www prefix on these domains
+ */
+
 var map = {
-  "www.hepsiburada.com": {
+  "hepsiburada.com": {
     "product_detail": "/:product-p-:sku",
     "product_name": "document.getElementsByClassName('product-name')[0].innerText",
     "product_brand": "document.getElementsByClassName('brand-name')[0].innerText"
@@ -14,7 +18,7 @@ var map = {
     "product_name": "document.getElementsByClassName('title')[0].innerText",
     "product_brand": "window.TRACKING_PRODUCT_BRAND"
   },
-  "www.teknosa.com": {
+  "teknosa.com": {
     "product_detail": "/urunler/:sku/:product",
     "product_name": "$.Teknosa.ProductDetail.ProductName",
     "product_brand": "$.Teknosa.ProductDetail.ProductBrandName"
