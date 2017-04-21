@@ -32,10 +32,12 @@ var app = {
       return self.indexOf(value) === index;
     });
 
+    // detection disabled
     if (detects.length) {
-      var query = app.query(arr);
-      app.search(query);
     }
+
+    var query = app.query(arr);
+    app.search(query);
   },
   search: function (query) {
     search(query, function () {
