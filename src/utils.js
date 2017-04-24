@@ -80,5 +80,10 @@ var utils = {
     }
 
     return obj;
+  },
+  getStrId: function () {
+    return (+new Date() + '').split('').map(function (num) {
+      return String.fromCharCode(97 + parseInt(num));
+    }).join('');
   }
 };
