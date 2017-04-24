@@ -36,12 +36,10 @@ var app = {
       return self.indexOf(value) === index;
     });
 
-    // detection disabled
     if (detects.length) {
+      var query = app.query(arr);
+      search(query, obj.product_price);
     }
-
-    var query = app.query(arr);
-    search(query, obj.product_price);
   },
   query: function (arr) {
     var result = [], ignored = [];
@@ -72,9 +70,9 @@ var app = {
       var b = words.slice(i, 2 + i).join(' ').trim();
       var c = words.slice(i, 3 + i).join(' ').trim();
 
-      var x = a.similar(keywords);
-      var y = b.similar(keywords);
-      var z = c.similar(keywords);
+      var x = a.similar(brands);
+      var y = b.similar(brands);
+      var z = c.similar(brands);
 
       var out = app.select([x, y, z], [a, b, c]);
 

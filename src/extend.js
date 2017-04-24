@@ -141,22 +141,28 @@ Array.prototype.sortByKey = function (key, desc) {
 
 
 String.prototype.similar = function (texts) {
-  var data = [];
-
-  for (var m = 0; m < texts.length; m++) {
-    data.push({original: texts[m], clean: texts[m].toEnglish(), soundEx: texts[m].toEnglish().toUpperCase().soundEx()});
-  }
-
   var input = this;
+  var data = [];
   var bestScore = -1;
   var bestObj = {};
   var calculated = [];
+  var anothers = [];
+
+  for (var m = 0; m < texts.length; m++) {
+    var text = texts[m].toLowerCase();
+    data.push({original: text, clean: text.toEnglish(), soundEx: text.toEnglish().toUpperCase().soundEx()});
+  }
 
   for (var i = 0; i < data.length; i++) {
     var obj = data[i];
     var lo = input.levenshtein(obj.original, 1, 2, 1);
     var lc = input.toEnglish().levenshtein(obj.clean, 1, 2, 1);
-    var ls = lo === 0 || lc === 0 ? 0 : input.toEnglish().toUpperCase().soundEx().levenshtein(obj.soundEx, 1, 2, 1);
+    var ls = (lo === 0 || lc === 0) ? 0 :
+      input
+        .toEnglish()
+        .toUpperCase()
+        .soundEx()
+        .levenshtein(obj.soundEx, 1, 2, 1);
 
     obj.ans = [lo, lc, ls];
     obj.calc = Math.floor(ls + lc / 2.0 + lo);
@@ -166,27 +172,41 @@ String.prototype.similar = function (texts) {
       bestObj = obj;
     }
 
-    calculated.push({o: obj.original, lo: lo, lc: lc, ls: ls, c: obj.calc});
+    calculated.push({
+      o: obj.original,
+      lo: lo,
+      lc: lc,
+      ls: ls,
+      c: obj.calc
+    });
   }
 
   calculated.sortByKey("c");
 
-  var anothers = [];
-
   for (var j = 0; j < calculated.length; j++) {
     var c = calculated[j];
-    anothers.push({original: c.o, score: c.c, levenshtein: c.lo, english: c.lc, soundEx: c.ls});
+    anothers.push({
+      original: c.o,
+      score: c.c,
+      levenshtein: c.lo,
+      english: c.lc,
+      soundEx: c.ls
+    });
   }
 
-  return {result: bestObj.original, score: bestScore, anothers: anothers};
+  return {
+    result: bestObj.original,
+    score: bestScore,
+    anothers: anothers
+  };
 };
 
 String.prototype.pass = function () {
+  var current = this;
+
   function safeRegexEscape(str) {
     return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
   }
-
-  var current = this;
 
   for (var i = 0; i < arguments.length; i++) {
     var arg = arguments[i];

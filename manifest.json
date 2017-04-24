@@ -29,7 +29,7 @@
       ],
       "js": [
         "data/map.js",
-        "data/keywords.js",
+        "data/data.js",
         "libs/isarray.js",
         "libs/path-to-regexp.js",
         "libs/multiline.js",

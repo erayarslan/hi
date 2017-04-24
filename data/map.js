@@ -5,7 +5,7 @@
 var map = {
   "hepsiburada.com": {
     "product_detail": "/:product-p-:sku",
-    "product_name": "window.productModel",
+    "product_name": "document.getElementsByClassName('name')[0].innerText",
     "product_brand": "document.getElementsByClassName('brand-name')[0].innerText",
     "product_price": "document.getElementsByClassName('price')[0].innerText"
   },

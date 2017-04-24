@@ -1,1 +1,0 @@
-var keywords = ["sony", "apple", "kindle", "nintendo", "calvin klein", "arzum"];
