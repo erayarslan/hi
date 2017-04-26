@@ -8,32 +8,57 @@ var service = {
     }, function () {
     });
   },
-  image: function (title, message, image, url) {
+  thanks: function () {
     chrome.notifications.create("", {
+      title: "hi",
+      message: "Teşekkürler :>",
+      type: 'basic',
+      iconUrl: '../assets/icon120.png'
+    }, function (createdId) {
+      setTimeout(function () {
+        chrome.notifications.clear(createdId);
+      }, 1500);
+    });
+  },
+  product: function (title, message, image, url, rating) {
+    chrome.notifications.create('', {
       title: title,
       message: message,
+      contextMessage: rating + ' puanlı ürün',
+      requireInteraction: true,
       type: 'image',
       iconUrl: '../assets/icon120.png',
-      imageUrl: image
+      imageUrl: image,
+      buttons: [{
+        title: "Hatalı içerik :<",
+        iconUrl: "../assets/dislike.png"
+      }]
     }, function (createdId) {
-      var handler = function (id) {
+      var click = function (id) {
         if (id === createdId) {
           service.navigate(url);
           chrome.notifications.clear(id);
-          chrome.notifications
-            .onClicked.removeListener(handler);
+          chrome.notifications.onClicked.removeListener(click);
         }
       };
 
-      chrome.notifications
-        .onClicked.addListener(handler);
+      var button = function (id, button) {
+        if (id === createdId && button === 0) {
+          service.thanks();
+          chrome.notifications.clear(id);
+          chrome.notifications.onClicked.removeListener(click);
+        }
+      };
+
+      chrome.notifications.onButtonClicked.addListener(button);
+      chrome.notifications.onClicked.addListener(click)
     });
   },
   navigate: function (url) {
     chrome.tabs.create({url: url});
   },
   moneyToNumber: function (str) {
-    var a = str.indexOf('TL') > -1 ? str.split('.').join('') : str;
+    var a = str.indexOf(DEFAULT_CURRENCY) > -1 ? str.split('.').join('') : str;
     return parseFloat(a);
   }
 };
@@ -50,7 +75,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var cmp_price = service.moneyToNumber(data.cmp_price);
 
     if (cmp_price > price) {
-      service.image('Daha ucuza Hepsiburada.com\'da !', data.price, data.image, data.url);
+      service.product('Daha ucuza Hepsiburada.com\'da !', data.price, data.image, data.url, data.rating);
     }
   }
 });
