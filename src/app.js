@@ -1,32 +1,28 @@
 var isTop = true;
 var host = location.host;
 var site = host['startsWith'](HOST_JOKER_PREFIX) ? host.substr(HOST_JOKER_PREFIX.length) : host;
-var scripts = utils.tunnelScripts();
 
-var app = {
+var App = {
   init: function (data) {
-    var path = location.pathname;
-    var keys = [];
-    var pattern = pathToRegexp(data.product_detail, keys);
-    var result = pattern.exec(path);
+    var path = new Path(data.product_detail, location.pathname);
 
-    if (result) {
-      var params = utils.getParams(result, keys);
-      app.collect(data);
+    if (path.test()) {
+      var params = path.params();
+      App.collect(data);
     }
   },
   collect: function (data) {
-    Promise.all([
-      scripts.execute("product_name", data.product_name),
-      scripts.execute("product_brand", data.product_brand),
-      scripts.execute("product_price", data.product_price)
-    ]).then(app.done);
+    window['Promise'].all([
+      Proxy.execute("product_name", data.product_name),
+      Proxy.execute("product_brand", data.product_brand),
+      Proxy.execute("product_price", data.product_price)
+    ]).then(App.done);
   },
   detect: function (arr) {
     var detects = [];
 
     for (var i = 0; i < arr.length; i++) {
-      detects = detects.concat(app.analyze(arr[i]));
+      detects = detects.concat(App.analyze(arr[i]));
     }
 
     detects = detects.filter(function (value, index, self) {
@@ -36,12 +32,12 @@ var app = {
     return detects.length;
   },
   done: function (arr) {
-    var obj = utils.mergeExecutePromiseArr(arr);
+    var obj = Utils.collectionArrToSingleObj(arr);
     arr = [obj.product_name, obj.product_brand];
 
-    if (!BRAND_DETECTION || app.detect(arr)) {
-      var query = app.query(arr);
-      search(query, obj.product_price);
+    if (!BRAND_DETECTION || App.detect(arr)) {
+      var query = App.query(arr);
+      Search(query, obj.product_price);
     }
   },
   query: function (arr) {
@@ -77,7 +73,7 @@ var app = {
       var y = b.similar(brands);
       var z = c.similar(brands);
 
-      var out = app.select([x, y, z], [a, b, c]);
+      var out = App.select([x, y, z], [a, b, c]);
 
       if (out.score <= EXPECTED_SCORE) {
         results.push(out);
@@ -93,7 +89,7 @@ var app = {
       return {text: item.result, score: item.score, from: pure[i]}
     });
 
-    return app.getMinAndMax(arr, 'score').min;
+    return App.getMinAndMax(arr, 'score').min;
   },
   getMinAndMax: function (arr, attr) {
     if (!arr.length) return null;

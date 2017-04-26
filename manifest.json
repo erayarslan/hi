@@ -19,7 +19,10 @@
   },
   "background": {
     "scripts": [
+      "libs/pouchdb.js",
       "src/constants.js",
+      "src/utils.js",
+      "src/notification.js",
       "src/service.js"
     ]
   },
@@ -37,6 +40,8 @@
         "src/constants.js",
         "src/extend.js",
         "src/utils.js",
+        "src/path.js",
+        "src/proxy.js",
         "src/search.js",
         "src/app.js",
         "src/boot.js"
