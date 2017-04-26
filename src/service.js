@@ -4,7 +4,7 @@ var service = {
       title: title,
       message: message,
       type: 'basic',
-      iconUrl: '../assets/icon120.png'
+      iconUrl: DEFAULT_ICON
     }, function () {
     });
   },
@@ -13,7 +13,7 @@ var service = {
       title: "hi",
       message: "Teşekkürler :>",
       type: 'basic',
-      iconUrl: '../assets/icon120.png'
+      iconUrl: DEFAULT_ICON
     }, function (createdId) {
       setTimeout(function () {
         chrome.notifications.clear(createdId);
@@ -27,7 +27,7 @@ var service = {
       contextMessage: rating + ' puanlı ürün',
       requireInteraction: true,
       type: 'image',
-      iconUrl: '../assets/icon120.png',
+      iconUrl: DEFAULT_ICON,
       imageUrl: image,
       buttons: [{
         title: "Hatalı içerik :<",

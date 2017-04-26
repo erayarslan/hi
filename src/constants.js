@@ -4,3 +4,5 @@ var SEARCH_URL = "http://www.hepsiburada.com/ara?q=";
 var HOST_JOKER_PREFIX = "www.";
 var QUERY_SLICE_COUNT = 4;
 var DEFAULT_CURRENCY = "TL";
+var BRAND_DETECTION = false;
+var DEFAULT_ICON = "../assets/icon128.png";

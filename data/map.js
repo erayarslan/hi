@@ -1,5 +1,5 @@
 /**
- * do NOT use www prefix on these domains
+ * DON'T use www prefix on these domains
  */
 
 var map = {

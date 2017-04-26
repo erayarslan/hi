@@ -22,10 +22,7 @@ var app = {
       scripts.execute("product_price", data.product_price)
     ]).then(app.done);
   },
-  done: function (arr) {
-    var obj = utils.mergeExecutePromiseArr(arr);
-    arr = [obj.product_name, obj.product_brand];
-
+  detect: function (arr) {
     var detects = [];
 
     for (var i = 0; i < arr.length; i++) {
@@ -36,7 +33,13 @@ var app = {
       return self.indexOf(value) === index;
     });
 
-    if (detects.length) {
+    return detects.length;
+  },
+  done: function (arr) {
+    var obj = utils.mergeExecutePromiseArr(arr);
+    arr = [obj.product_name, obj.product_brand];
+
+    if (!BRAND_DETECTION || app.detect(arr)) {
       var query = app.query(arr);
       search(query, obj.product_price);
     }
@@ -109,14 +112,6 @@ var app = {
   sendToPlugin: function (obj) {
     chrome.runtime.sendMessage(obj, function (response) {
     });
-  }
-};
-
-window['onload'] = function () {
-  if (map.hasOwnProperty(site)) {
-    if (!utils.isHepsiburada()) {
-      app.init(map[site]);
-    }
   }
 };
 

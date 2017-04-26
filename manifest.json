@@ -11,11 +11,11 @@
   "manifest_version": 2,
   "icons": {
     "16": "assets/icon16.png",
-    "48": "assets/icon60.png",
-    "128": "assets/icon120.png"
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
   },
   "browser_action": {
-    "default_icon": "assets/icon120.png"
+    "default_icon": "assets/icon128.png"
   },
   "background": {
     "scripts": [
@@ -38,7 +38,8 @@
         "src/extend.js",
         "src/utils.js",
         "src/search.js",
-        "src/app.js"
+        "src/app.js",
+        "src/boot.js"
       ]
     },
     {
