@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "devDependencies": {
+    "gulp":"3.9.1",
+    "gulp-clean": "0.3.2",
+    "gulp-uglify": "2.1.2",
+    "gulp-zip": "4.0.0",
+    "gulp-concat": "2.6.1",
+    "gulp-json-editor": "2.2.1"
+  }
+}

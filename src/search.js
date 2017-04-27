@@ -13,11 +13,11 @@ var Search = function (query, price) {
    * Error: Uncaught DOMException: Blocked a frame with origin "http://target.com" from accessing a cross-origin frame.
    */
   iframe.onload = function () {
-    /*
-     Proxy
-     .execute("page_title", "document.getElementById('%%').contentWindow.document.title".pass(id))
-     .then(function (response) {
-     });
+    /**
+     * Proxy
+     * .execute("page_title", "document.getElementById('%%').contentWindow.document.title".pass(id))
+     * .then(function (response) {
+     * });
      */
   };
 };

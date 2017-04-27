@@ -9,13 +9,9 @@ var Proxy = {
     return new window['Promise']((function (resolve, reject) {
       var event_id = "execute_" + Utils.getStrId();
 
-      var _script = function () {
-        /*
-         function () {
-         document.body.dispatchEvent(new CustomEvent('%%', {detail: eval("%%")}));
-         }
-         */
-      };
+      var _script = "function () { \
+        document.body.dispatchEvent(new CustomEvent('%%', {detail: eval('%%')}));\
+      }";
 
       document.body.addEventListener(event_id, function (e) {
         var data = {};
@@ -23,7 +19,7 @@ var Proxy = {
         resolve(data);
       });
 
-      this.inject(multiline(_script).pass(event_id, cmd));
+      this.inject(_script.pass(event_id, cmd));
     }).bind(this));
   }
 };
