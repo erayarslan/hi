@@ -21,5 +21,28 @@ var Proxy = {
 
       this.inject(_script.pass(event_id, cmd));
     }).bind(this));
+  },
+  ajax: function (next) {
+    var event_id = "ajax_" + Utils.getStrId();
+
+    var _script = "function() {\
+        var oldSend = XMLHttpRequest.prototype.send;\
+        XMLHttpRequest.prototype.send = function () {\
+          var oldOnLoad = this.onload;\
+          this.onload = function () { \
+            document.body.dispatchEvent(new CustomEvent('%%', {detail: this.responseText})); \
+            if (oldOnLoad) {\
+              oldOnLoad.apply(this, arguments);\
+            }\
+          };\
+          oldSend.apply(this, arguments);\
+        };\
+      }";
+
+    document.body.addEventListener(event_id, function (e) {
+      next(e.detail.toString().trim());
+    });
+
+    this.inject(_script.pass(event_id));
   }
 };

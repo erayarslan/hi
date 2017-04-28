@@ -5,11 +5,17 @@ var site = host['startsWith'](HOST_JOKER_PREFIX) ? host.substr(HOST_JOKER_PREFIX
 var App = {
   init: function (data) {
     var path = new Path(data.product_detail, location.pathname);
+    var sniffer = new Sniffer();
+
+    sniffer.ajax(this.onAjax.bind(this));
 
     if (path.test()) {
       var params = path.params();
       App.collect(data);
     }
+  },
+  onAjax: function (res) {
+    this.sendToPlugin({ajax: res});
   },
   collect: function (data) {
     window['Promise'].all([
