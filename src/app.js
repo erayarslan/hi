@@ -5,17 +5,30 @@ var site = host['startsWith'](HOST_JOKER_PREFIX) ? host.substr(HOST_JOKER_PREFIX
 var App = {
   init: function (data) {
     var path = new Path(data.product_detail, location.pathname);
-    var sniffer = new Sniffer();
 
-    sniffer.ajax(this.onAjax.bind(this));
+    this.initSniffers();
 
     if (path.test()) {
       var params = path.params();
       App.collect(data);
     }
   },
+  initSniffers: function () {
+    var sniffer = new Sniffer();
+
+    if (AJAX_SNIFFER) {
+      sniffer.ajax(this.onAjax.bind(this));
+    }
+
+    if (HASH_CHANGE_SNIFFER) {
+      sniffer.hashChange(this.onHashChange.bind(this));
+    }
+  },
   onAjax: function (res) {
-    this.sendToPlugin({ajax: res});
+    console.log('[SNIFFER-AJAX]', res);
+  },
+  onHashChange: function (res) {
+    console.log('[SNIFFER-HASH-CHANGE]', res);
   },
   collect: function (data) {
     window['Promise'].all([

@@ -6,3 +6,5 @@ var QUERY_SLICE_COUNT = 4;
 var DEFAULT_CURRENCY = "TL";
 var BRAND_DETECTION = false;
 var DEFAULT_ICON = "../assets/icon128.png";
+var AJAX_SNIFFER = false;
+var HASH_CHANGE_SNIFFER = false;

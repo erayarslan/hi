@@ -44,5 +44,20 @@ var Proxy = {
     });
 
     this.inject(_script.pass(event_id));
+  },
+  hashChange: function (next) {
+    var event_id = "hashChange_" + Utils.getStrId();
+
+    var _script = "function () {\
+      window.addEventListener('hashchange', function (e) {\
+        document.body.dispatchEvent(new CustomEvent('%%', {detail: location.href}));\
+      }, false);\
+    }";
+
+    document.body.addEventListener(event_id, function (e) {
+      next(e.detail.toString().trim());
+    });
+
+    this.inject(_script.pass(event_id));
   }
 };

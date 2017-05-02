@@ -37,8 +37,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
       service.db.put({_id: Utils.getStrId(), type: 'log', log: data.url});
     }
-  } else if (request.ajax) {
-    console.log('[SNIFFER-AJAX]', request.ajax);
   }
 });
 
