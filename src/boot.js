@@ -4,4 +4,6 @@ window['onload'] = function () {
       App.init(map[site]);
     }
   }
+
+  App.sendToPlugin({run: true});
 };

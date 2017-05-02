@@ -1,0 +1,1 @@
+var worker = "postMessage('from_web_worker' + ' %%');";

@@ -1,4 +1,7 @@
 var service = {
+  worker: function (str) {
+    return new Worker(URL.createObjectURL(new Blob([str.pass(Utils.guid())], {type: "text/javascript"})));
+  },
   navigate: function (url) {
     chrome.tabs.create({url: url});
   },
@@ -7,9 +10,19 @@ var service = {
     return parseFloat(a);
   },
   init: function () {
-    service.db = new PouchDB('hi');
+    this.db = new PouchDB('hi');
+    this.session = new Session();
+
+    this.worker(worker)['onmessage'] = function (e) {
+      console.log(e.data);
+    };
+
+    this.session.set('run', 0);
   },
-  db: void 0
+  db: void 0,
+  fileToUrl: function (file) {
+    return chrome.runtime.getURL(file);
+  }
 };
 
 chrome.browserAction.onClicked.addListener(function (tab) {

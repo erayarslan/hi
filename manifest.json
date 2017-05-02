@@ -21,6 +21,9 @@
     "scripts": [
       "libs/pouchdb.js",
       "src/constants.js",
+      "src/extend.js",
+      "src/session.js",
+      "src/worker.js",
       "src/utils.js",
       "src/notification.js",
       "src/service.js"
@@ -57,5 +60,6 @@
       ],
       "all_frames": true
     }
-  ]
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
