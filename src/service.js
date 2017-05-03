@@ -26,7 +26,9 @@ var service = {
       this.onMessageFromIframe(req.iframe);
     }
   },
-  onMessageFromIframe: function (data) {
+  onMessageFromIframe: function (results) {
+    var data = results[0];
+
     var price = service.moneyToNumber(data.price);
     var cmp_price = service.moneyToNumber(data.cmp_price);
 
