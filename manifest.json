@@ -45,6 +45,7 @@
         "src/path.js",
         "src/proxy.js",
         "src/sniffer.js",
+        "src/tracker.js",
         "src/search.js",
         "src/app.js",
         "src/boot.js"

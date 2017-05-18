@@ -24,6 +24,8 @@ var service = {
   onMessage: function (req, sender, sendRes) {
     if (req.iframe) {
       this.onMessageFromIframe(req.iframe);
+    } else if (req.clickTracker) {
+      this.collectTrackerLink(req.clickTracker);
     }
   },
   onMessageFromIframe: function (results) {
@@ -50,6 +52,13 @@ var service = {
         log: data.url
       });
     }
+  },
+  collectTrackerLink: function (link) {
+    service.db.put({
+      _id: Utils.getStrId(),
+      type: 'tracker_link',
+      link: link
+    });
   },
   navigate: function (url) {
     chrome.tabs.create({url: url});

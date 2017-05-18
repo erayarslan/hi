@@ -28,3 +28,10 @@ var map = {
     "product_price": "$.Teknosa.ProductDetail.ProductPrice"
   }
 };
+
+var tracker_map = {
+  "akakce.com": {
+    "detect_url": "/:category/en-ucuz-:product-fiyati,:sku.html",
+    "selectors": ['.iC']
+  }
+};

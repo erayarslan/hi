@@ -13,6 +13,18 @@ var App = {
       App.collect(data);
     }
   },
+  tracker: function (data) {
+    var path = new Path(data.detect_url, location.pathname);
+
+    if (path.test()) {
+      var params = path.params();
+
+      var tracker = new Tracker();
+      tracker.click(data.selectors, function (data) {
+        App.sendToPlugin({clickTracker: data});
+      });
+    }
+  },
   initSniffers: function () {
     var sniffer = new Sniffer();
 

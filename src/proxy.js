@@ -59,5 +59,26 @@ var Proxy = {
     });
 
     this.inject(_script.pass(event_id));
+  },
+  clickTracker: function (selectors, next) {
+    var event_id = "clickTracker_" + Utils.getStrId();
+
+    var _script = "function () {\
+      '%%'.split('%')\
+        .forEach(function (s) {\
+          document.querySelectorAll(s)\
+            .forEach(function (e) {\
+              e.addEventListener('click', function (e) {\
+                document.body.dispatchEvent(new CustomEvent('%%', {detail: this.href}))\
+              }, false);\
+            });\
+        });\
+    }";
+
+    document.body.addEventListener(event_id, function (e) {
+      next(e.detail.toString().trim());
+    });
+
+    this.inject(_script.pass(selectors.join('%'), event_id))
   }
 };
