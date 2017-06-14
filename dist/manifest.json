@@ -1,0 +1,42 @@
+{
+  "name": "hi",
+  "description": "Hepsiburada.com Insight",
+  "short_name": "hi",
+  "version": "0.0.1",
+  "permissions": [
+    "tabs",
+    "notifications",
+    "<all_urls>"
+  ],
+  "manifest_version": 2,
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "browser_action": {
+    "default_icon": "assets/icon128.png"
+  },
+  "background": {
+    "scripts": [
+      "bejhedjcacbjj.js"
+    ]
+  },
+  "content_scripts": [{
+    "matches": [
+      "<all_urls>"
+    ],
+    "js": [
+      "bejhedjcaccda.js"
+    ]
+  }, {
+    "matches": [
+      "<all_urls>"
+    ],
+    "js": [
+      "bejhedjcaccda.js"
+    ],
+    "all_frames": true
+  }],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

@@ -18,13 +18,13 @@ var index = [];
 var bg = getId() + '.js';
 
 gulp.task('clean', function () {
-  return gulp.src('build/*', {read: false})
+  return gulp.src('dist/*', {read: false})
     .pipe(clean());
 });
 
 gulp.task('copy', ['scripts', 'manifest'], function () {
   return gulp.src('assets/**')
-    .pipe(gulp.dest('build/assets'));
+    .pipe(gulp.dest('dist/assets'));
 });
 
 gulp.task('manifest', function () {
@@ -38,7 +38,7 @@ gulp.task('manifest', function () {
 
       return json;
     }))
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('scripts', function () {
@@ -48,7 +48,7 @@ gulp.task('scripts', function () {
     gulp.src(content_script.js)
       .pipe(concat(out))
       .pipe(uglify())
-      .pipe(gulp.dest('build'));
+      .pipe(gulp.dest('dist'));
 
     index.push(out)
   });
@@ -56,7 +56,7 @@ gulp.task('scripts', function () {
   return gulp.src(manifest.background.scripts)
     .pipe(concat(bg))
     .pipe(uglify())
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', ['clean'], function () {
