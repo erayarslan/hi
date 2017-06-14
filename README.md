@@ -1,4 +1,4 @@
-# ![logo](https://image.ibb.co/i4GZ2k/icon128.png)
+![logo](https://image.ibb.co/i4GZ2k/icon128.png)
 > Hepsiburada.com Insight
 
 ## Build

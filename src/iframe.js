@@ -1,7 +1,10 @@
 if (!window.isTop) {
   if (location.href.indexOf(SEARCH_URL) > -1) {
+    var totalItemCount = parseInt(document.getElementsByClassName("result-count")[0].innerText.split('.').join(''));
+
     var items = document.getElementsByClassName('search-item');
     var results = [];
+
     for (var i = 0; i < items.length; i++) {
       var data = {};
 
@@ -19,6 +22,11 @@ if (!window.isTop) {
       results.push(data);
     }
 
-    chrome.runtime.sendMessage({iframe: results});
+    chrome.runtime.sendMessage({
+      iframe: {
+        totalItemCount: totalItemCount,
+        results: results
+      }
+    });
   }
 }

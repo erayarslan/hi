@@ -26,10 +26,15 @@ var service = {
       this.onMessageFromIframe(req.iframe);
     } else if (req.clickTracker) {
       this.collectTrackerLink(req.clickTracker);
+    } else if (req.devLog) {
+      this.pushDevLog(req.devLog);
+    } else if (req.run) {
+      this.session.inc('run');
     }
   },
-  onMessageFromIframe: function (results) {
-    var data = results[0];
+  onMessageFromIframe: function (obj) {
+    var data = obj.results[0];
+    var totalItemCount = obj.totalItemCount;
 
     var price = service.moneyToNumber(data.price);
     var cmp_price = service.moneyToNumber(data.cmp_price);
@@ -39,7 +44,8 @@ var service = {
         title: 'Daha ucuza Hepsiburada.com\'da !',
         message: data.price,
         image: data.image,
-        rating: data.rating
+        rating: data.rating,
+        totalItemCount: totalItemCount
       }, function () {
         service.navigate(data.url);
       }, function () {
@@ -51,7 +57,12 @@ var service = {
         type: 'log',
         log: data.url
       });
+
+      this.pushDevLog(data.url + ' product suggested.');
     }
+  },
+  pushDevLog: function (str) {
+    Dev.log(str);
   },
   collectTrackerLink: function (link) {
     service.db.put({

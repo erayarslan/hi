@@ -26,7 +26,7 @@ var Notification = {
     n.create('', {
       title: o.title,
       message: o.message,
-      contextMessage: o.rating + ' puanlı ürün',
+      contextMessage: o.totalItemCount + " sonuçtan, " + o.rating + ' puanlı ürün.',
       requireInteraction: true,
       type: 'image',
       iconUrl: DEFAULT_ICON,

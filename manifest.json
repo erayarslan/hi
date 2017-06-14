@@ -26,6 +26,7 @@
       "src/worker.js",
       "src/utils.js",
       "src/notification.js",
+      "src/dev.js",
       "src/service.js"
     ]
   },

@@ -18,11 +18,7 @@ var App = {
 
     if (path.test()) {
       var params = path.params();
-
-      var tracker = new Tracker();
-      tracker.click(data.selectors, function (data) {
-        App.sendToPlugin({clickTracker: data});
-      });
+      this.initTrackers(data.selectors);
     }
   },
   initSniffers: function () {
@@ -34,6 +30,15 @@ var App = {
 
     if (HASH_CHANGE_SNIFFER) {
       sniffer.hashChange(this.onHashChange.bind(this));
+    }
+  },
+  initTrackers: function (selectors) {
+    var tracker = new Tracker();
+
+    if (CLICK_TRACKER) {
+      tracker.click(selectors, function (data) {
+        App.sendToPlugin({clickTracker: data});
+      });
     }
   },
   onAjax: function (res) {
@@ -139,6 +144,9 @@ var App = {
   sendToPlugin: function (obj) {
     chrome.runtime.sendMessage(obj, function (response) {
     });
+  },
+  pushDevLog: function (str) {
+    App.sendToPlugin({devLog: str});
   }
 };
 

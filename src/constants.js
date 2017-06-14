@@ -8,3 +8,4 @@ var BRAND_DETECTION = false;
 var DEFAULT_ICON = "../assets/icon128.png";
 var AJAX_SNIFFER = false;
 var HASH_CHANGE_SNIFFER = false;
+var CLICK_TRACKER = true;
