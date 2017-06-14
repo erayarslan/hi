@@ -19,7 +19,7 @@
   },
   "background": {
     "scripts": [
-      "bejhedjcacbjj.js"
+      "bejhedjejahjg.js"
     ]
   },
   "content_scripts": [{
@@ -27,14 +27,14 @@
       "<all_urls>"
     ],
     "js": [
-      "bejhedjcaccda.js"
+      "bejhedjejaidj.js"
     ]
   }, {
     "matches": [
       "<all_urls>"
     ],
     "js": [
-      "bejhedjcaccda.js"
+      "bejhedjejaiei.js"
     ],
     "all_frames": true
   }],
