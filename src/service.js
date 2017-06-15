@@ -33,6 +33,8 @@ var service = {
     }
   },
   onMessageFromIframe: function (obj) {
+    console.log('Collected', obj);
+
     var data = obj.results[0];
     var totalItemCount = obj.totalItemCount;
 
