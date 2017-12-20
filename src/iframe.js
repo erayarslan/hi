@@ -1,3 +1,5 @@
+// Hepsiburada.com IFrame Wrapper
+
 if (!window.isTop) {
   if (location.href.indexOf(SEARCH_URL) > -1) {
     var resultCount = document.getElementsByClassName("result-count");
@@ -24,7 +26,7 @@ if (!window.isTop) {
 
       data['image'] = images.length ? images[0].src : "";
       data['price'] = els.length ? els[0].innerText : "";
-      data['url'] = links.length ? links[0].href : "";
+      data['url'] = "http://www.hepsiburada.com" + (links.length ? links[0].pathname : "");
       data['discount'] = discount.length ? discount[0].innerText : "%0";
       data['rating'] = (parseInt(ratings.length ? ratings[0].style.width : "100%") * 5) / 100;
       data['cmp_price'] = window.name;

@@ -14,3 +14,7 @@ gulp
 - Ensure that the "Developer mode" checkbox in the top right-hand corner is checked.
 - Click Load unpacked extension… to pop up a file-selection dialog.
 - Navigate to the directory in ``hi`` extension files live, and select it.
+
+## Example
+
+![example](https://raw.githubusercontent.com/erayarslan/hi/master/assets/example.png)
