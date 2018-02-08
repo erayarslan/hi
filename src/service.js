@@ -43,7 +43,7 @@ var service = {
 
     if (cmp_price > price) {
       Notification.product({
-        title: 'Daha ucuza Hepsiburada.com\'da !',
+        title: '♥ Hepsiburada ♥',
         message: data.price,
         image: data.image,
         rating: data.rating,
