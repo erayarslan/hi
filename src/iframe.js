@@ -24,7 +24,7 @@ if (!window.isTop) {
       var ratings = items[i].getElementsByClassName("ratings active");
       var discount = items[i].getElementsByClassName("badge highlight discount-badge");
 
-      data['image'] = images.length ? images[0].src : "";
+      data['image'] = (images.length ? images[0].src : "").replace('280-413', '364-180');
       data['price'] = els.length ? els[0].innerText : "";
       data['url'] = "https://www.hepsiburada.com" + (links.length ? links[0].pathname : "");
       data['discount'] = discount.length ? discount[0].innerText : "%0";
