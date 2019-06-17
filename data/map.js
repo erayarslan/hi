@@ -5,9 +5,9 @@
 var map = {
   "hepsiburada.com": {
     "product_detail": "/:product-p-:sku",
-    "product_name": "document.getElementsByClassName('name')[0].innerText",
-    "product_brand": "document.getElementsByClassName('brand-name')[0].innerText",
-    "product_price": "document.getElementsByClassName('price')[0].innerText"
+    "product_name": "utagData.product_name_array",
+    "product_brand": "utagData.product_brand",
+    "product_price": "utagData.product_prices[0]"
   },
   "urun.n11.com": {
     "product_detail": "/:category/:product-P:sku",
@@ -23,9 +23,15 @@ var map = {
   },
   "teknosa.com": {
     "product_detail": "/urunler/:sku/:product",
-    "product_name": "$.Teknosa.ProductDetail.ProductName",
-    "product_brand": "$.Teknosa.ProductDetail.ProductBrandName",
-    "product_price": "$.Teknosa.ProductDetail.ProductPrice"
+    "product_name": "extend_google_tag_params.cd_product_name",
+    "product_brand": "extend_google_tag_params.cd_product_brand",
+    "product_price": "extend_google_tag_params.cd_product_price"
+  },
+  'trendyol.com': {
+    "product_detail": "/:brand/:uri",
+    "product_name": "__PRODUCT_DETAIL_APP_INITIAL_STATE__.product.name",
+    "product_brand": "__PRODUCT_DETAIL_APP_INITIAL_STATE__.product.brand.beautifiedName",
+    "product_price": "__PRODUCT_DETAIL_APP_INITIAL_STATE__.product.price.sellingPrice.value.toString()"
   }
 };
 
